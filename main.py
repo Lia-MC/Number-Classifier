@@ -36,3 +36,22 @@ model = keras.Sequential([
 
     # the value with the highest probability is the number predicted by the model
 ])
+
+model.compile(
+    # optimizer -> adjusts weights of model to minimize loss
+    optimizer='adam', # general purpose optimizer
+
+    # loss function -> how far off the prediction is from targets
+    loss='sparse_categorical_crossentropy', # for multi-class recognition, good if labels are integers
+    
+    # helps monitor how well model is performing during training & testing
+    metrics=['accuracy'] # used for classification problems since it shows percentage of correct predictions
+)
+
+model.fit(x_train, y_train, epochs=5) ## epochs = number of times it goes through the data (training set)
+
+test_loss, test_acc = model.evaluate(x_test, y_test)
+print("Test accuracy", test_acc)
+
+predictions = model.predict(x_test)
+print(np.argmax(predictions[0])) ## why [0]?
