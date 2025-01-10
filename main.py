@@ -18,21 +18,21 @@ print("loading data set...")
 
 print("normalizing...")
 # normalize! -> set it to a value between 0 to 1, 0 = black, 1 = white
-x_train - x_train / 255.0
-y_train - y_train / 255.0
+x_train = x_train / 255.0
+y_train = y_train / 255.0
 
 print("setting up the layers...")
 # define model using keras
 model = keras.Sequential([
     # PROCESSES IMAGE
     # 28x28 image is now a 784 elem vector -> each elem is a px
-    keras.layers.Flatten(input_shape=(28, 28)) 
+    keras.layers.Flatten(input_shape=(28, 28)),
 
     # "LEARNS" THE PATTERNS
     # 128 neurons in a layer in which each neuron connects to every neuron in prev. layer
     # each px is multiplied by a weight and added some bias, and this is passed into relu activation function
     # relu function sets all neg values to 0
-    keras.layers.Dense(128, activation='relu') 
+    keras.layers.Dense(128, activation='relu'),
 
     # GENERATES PROBABILITIES
     # 10 neurons in a layer in which each neuron connects to every neuron in prev. layer
@@ -57,8 +57,8 @@ model.compile(
 
 model.fit(x_train, y_train, epochs=5) ## epochs = number of times it goes through the data (training set)
 
-test_loss, test_acc = model.evaluate(x_test, y_test)
+test_loss, test_acc = model.evaluate(x_test / 255.0, y_test)
 print("Test accuracy", test_acc)
 
 predictions = model.predict(x_test)
-print(np.argmax(predictions[0])) ## why [0]?
+print(np.argmax(predictions[0])) ## why predictions[0]? still unclear...
