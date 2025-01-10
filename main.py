@@ -6,16 +6,22 @@ from tensorflow.keras.layers import Dense
 import numpy as np
 import matplotlib.pyplot as plt
 
+print("Number Classifier!")
+
+print("loading data set...")
+
 # set x_train to images
 # set y_train to labels of images
 # set x_test to testing images
 # set y_test to labels for testing images
 (x_train, y_train), (x_test, y_test) = keras.datasets.mnist.load_data()
 
+print("normalizing...")
 # normalize! -> set it to a value between 0 to 1, 0 = black, 1 = white
 x_train - x_train / 255.0
 y_train - y_train / 255.0
 
+print("setting up the layers...")
 # define model using keras
 model = keras.Sequential([
     # PROCESSES IMAGE
@@ -37,6 +43,7 @@ model = keras.Sequential([
     # the value with the highest probability is the number predicted by the model
 ])
 
+print("training...")
 model.compile(
     # optimizer -> adjusts weights of model to minimize loss
     optimizer='adam', # general purpose optimizer
